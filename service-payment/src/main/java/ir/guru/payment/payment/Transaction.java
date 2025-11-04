@@ -55,18 +55,18 @@ class Transaction {
 
     private Transaction(TransactionAmountRials amountRials,
                         String username,
-                        String uniqueIdentifier,
-                        String description) {
+                        TransactionUniqueIdentifier uniqueIdentifier,
+                        @Nullable String description) {
         this.amountRials = amountRials;
-        this.username = requireText(username, "username");
-        this.uniqueIdentifier = requireText(uniqueIdentifier, "uniqueIdentifier");
+        this.username = username;
+        this.uniqueIdentifier = uniqueIdentifier;
         this.description = description;
     }
 
-    public static Transaction create(TransactionAmountRials amountRials,
-                                     String username,
-                                     String uniqueIdentifier,
-                                     String description) {
+    public static Transaction newTransaction(TransactionAmountRials amountRials,
+                                             String username,
+                                             TransactionUniqueIdentifier uniqueIdentifier,
+                                             @Nullable String description) {
         return new Transaction(amountRials, username, uniqueIdentifier, description);
     }
 }
