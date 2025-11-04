@@ -11,6 +11,7 @@ final class TransactionCreationService {
     private final TransactionFactory transactionFactory;
     private final TransactionRepository transactionRepository;
 
+    // TODO: write test, behavioral test
     Transaction createTransaction(TransactionImporter importer) throws TransactionCreationException {
         final var transaction = transactionFactory.createTransaction(importer);
         return transactionRepository.save(transaction);

@@ -70,17 +70,20 @@ class Donation {
         this.status = status;
     }
 
+    // TODO: write test
     static Donation newInProgress(Long campaignId, DonationAmountRials donationAmountRials, String username) {
         final var uniqueIdentifier = DonationUniqueIdentifier.random();
         final var status = DonationStatus.IN_PROGRESS;
         return new Donation(campaignId, donationAmountRials, username, uniqueIdentifier, status);
     }
 
+    // TODO: write test
     void paid() {
         this.status = DonationStatus.PAID;
         this.paidAt = LocalDateTime.now();
     }
 
+    // TODO: write test
     boolean isPaid() {
         return this.status.equals(DonationStatus.PAID);
     }
@@ -99,6 +102,7 @@ class Donation {
                 + version + '}';
     }
 
+    // TODO: write test
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Donation donation)) return false;

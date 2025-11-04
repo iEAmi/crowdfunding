@@ -71,7 +71,7 @@ final class CampaignController {
     private record CreateCampaignResponse(
             @JsonProperty("id") Long id) {}
 
-    private record CampaignResponse(
+    record CampaignResponse(
             @JsonProperty("id") Long id,
             @JsonProperty("name") CampaignName name,
             @JsonProperty("description") @Nullable String description,
@@ -80,7 +80,8 @@ final class CampaignController {
             @JsonProperty("amountRialsReachedAt") @Nullable TargetAmountReachedAt amountRialsReachedAt,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
 
-        private static CampaignResponse of(CampaignXerox xerox) {
+        // TODO: write test
+        static CampaignResponse of(CampaignXerox xerox) {
             return new CampaignResponse(
                     xerox.id(),
                     xerox.name(),

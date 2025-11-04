@@ -61,6 +61,7 @@ class Transaction {
         this.description = description;
     }
 
+    // TODO: write test
     public static Transaction newTransaction(
             TransactionAmountRials amountRials,
             String username,

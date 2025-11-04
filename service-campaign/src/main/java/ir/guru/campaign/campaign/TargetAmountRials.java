@@ -20,16 +20,19 @@ public final class TargetAmountRials {
         this.value = value;
     }
 
+    // TODO: write test
     @JsonCreator
     public static TargetAmountRials of(long value) {
         return new TargetAmountRials(value);
     }
 
+    // TODO: write test
     @JsonValue
     public long value() {
         return value;
     }
 
+    // TODO: write test
     @Override
     public String toString() {
         return Long.toString(value);

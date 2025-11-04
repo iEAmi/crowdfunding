@@ -61,16 +61,19 @@ class Campaign {
         this.targetAmountRialsReachedAt = null;
     }
 
+    // TODO: write test
     static Campaign create(CampaignName name, @Nullable String description, TargetAmountRials targetAmountRials) {
         return new Campaign(name, description, targetAmountRials);
     }
 
+    // TODO: write test
     boolean canDonate(DonationAmountRials donationAmountRials) {
         if (isTargetReached()) return false;
 
         return getRemainingAmountRials() > donationAmountRials.value();
     }
 
+    // TODO: write test
     void donate(DonationAmountRials donationAmountRials) {
         this.currentAmountRials = currentAmountRials.plus(donationAmountRials);
 
@@ -98,6 +101,7 @@ class Campaign {
                 + updatedAt + '}';
     }
 
+    // TODO: write test
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Campaign campaign)) return false;

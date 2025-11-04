@@ -22,20 +22,24 @@ public final class CurrentAmountRials {
         this.value = value;
     }
 
+    // TODO: write test
     @JsonCreator
     public static CurrentAmountRials of(long value) {
         return new CurrentAmountRials(value);
     }
 
+    // TODO: write test
     @JsonValue
     public long value() {
         return value;
     }
 
+    // TODO: write test
     CurrentAmountRials plus(DonationAmountRials donationAmountRials) {
         return new CurrentAmountRials(value + donationAmountRials.value());
     }
 
+    // TODO: write test
     @Override
     public String toString() {
         return Long.toString(value);

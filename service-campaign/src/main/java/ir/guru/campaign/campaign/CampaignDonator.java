@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 final class CampaignDonator {
     private final TransactionCreator transactionCreator;
 
+    // TODO: write test
     void donate(Campaign campaign, Donation donation) {
         if (!donation.isPaid()) throw new IllegalStateException("Donation is not paid");
 

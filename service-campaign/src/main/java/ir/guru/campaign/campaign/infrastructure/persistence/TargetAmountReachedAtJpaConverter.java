@@ -6,6 +6,7 @@ import jakarta.persistence.Converter;
 import java.time.LocalDateTime;
 import org.springframework.lang.Nullable;
 
+// TODO: write test
 @Converter(autoApply = true)
 final class TargetAmountReachedAtJpaConverter implements AttributeConverter<TargetAmountReachedAt, LocalDateTime> {
 

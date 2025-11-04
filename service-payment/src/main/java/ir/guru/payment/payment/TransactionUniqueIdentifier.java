@@ -15,6 +15,7 @@ import lombok.experimental.FieldNameConstants;
 public final class TransactionUniqueIdentifier {
     private String value;
 
+    // TODO: write test
     @JsonCreator
     public TransactionUniqueIdentifier(String value) {
         if (value.trim().isEmpty())
@@ -22,6 +23,7 @@ public final class TransactionUniqueIdentifier {
         this.value = value.trim();
     }
 
+    // TODO: write test
     @JsonValue
     @Override
     public String toString() {

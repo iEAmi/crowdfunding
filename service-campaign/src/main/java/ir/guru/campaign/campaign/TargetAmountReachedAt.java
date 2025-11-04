@@ -17,24 +17,29 @@ import lombok.experimental.FieldNameConstants;
 public final class TargetAmountReachedAt {
     private LocalDateTime value;
 
+    // TODO: write test
     @JsonCreator
     public TargetAmountReachedAt(LocalDateTime value) {
         this.value = value;
     }
 
+    // TODO: write test
     @JsonCreator
     public TargetAmountReachedAt(String isoValue) {
         this.value = LocalDateTime.parse(isoValue, DateTimeFormatter.ISO_DATE_TIME);
     }
 
+    // TODO: write test
     static TargetAmountReachedAt now() {
         return new TargetAmountReachedAt(LocalDateTime.now());
     }
 
+    // TODO: write test
     public LocalDateTime value() {
         return value;
     }
 
+    // TODO: write test
     @JsonValue
     @Override
     public String toString() {

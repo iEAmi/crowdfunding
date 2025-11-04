@@ -14,6 +14,7 @@ final class DonationFactory {
     private final DonationProperties properties;
     private final DonationRepository donationRepository;
 
+    // TODO: write test
     Donation createDonation(Campaign campaign, String username, DonationAmountRials amountRials)
             throws DonationCreationException {
         guardAgainstInvalidDonation(campaign, amountRials);

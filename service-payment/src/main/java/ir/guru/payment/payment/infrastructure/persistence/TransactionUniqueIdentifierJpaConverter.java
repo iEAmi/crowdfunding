@@ -4,6 +4,7 @@ import ir.guru.payment.payment.TransactionUniqueIdentifier;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
+// TODO: write test
 @Converter(autoApply = true)
 final class TransactionUniqueIdentifierJpaConverter implements AttributeConverter<TransactionUniqueIdentifier, String> {
 

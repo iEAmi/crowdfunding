@@ -13,6 +13,7 @@ public record CampaignXerox(
         @Nullable TargetAmountReachedAt amountRialsReachedAt,
         LocalDateTime createdAt) {
 
+    // TODO: write test
     static CampaignXerox of(Campaign campaign) {
         return new CampaignXerox(
                 campaign.getId(),

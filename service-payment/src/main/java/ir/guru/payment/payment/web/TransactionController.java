@@ -57,7 +57,7 @@ final class TransactionController {
                 .collect(Collectors.toSet());
     }
 
-    private record TransactionResponse(
+    record TransactionResponse(
             @JsonProperty("id") Long id,
             @JsonProperty("amountRials") TransactionAmountRials amountRials,
             @JsonProperty("username") String username,
@@ -65,7 +65,8 @@ final class TransactionController {
             @JsonProperty("description") @Nullable String description,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
 
-        private static TransactionResponse of(TransactionXerox xerox) {
+        // TODO: write test
+        static TransactionResponse of(TransactionXerox xerox) {
             return new TransactionResponse(
                     xerox.id(),
                     xerox.amountRials(),
