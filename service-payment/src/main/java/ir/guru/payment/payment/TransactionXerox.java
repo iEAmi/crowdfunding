@@ -2,13 +2,14 @@ package ir.guru.payment.payment;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import org.springframework.lang.Nullable;
 
 public record TransactionXerox(
         Long id,
         TransactionAmountRials amountRials,
         String username,
         TransactionUniqueIdentifier uniqueIdentifier,
-        String description,
+        @Nullable String description,
         LocalDateTime createdAt) {
 
     static TransactionXerox of(Transaction transaction) {

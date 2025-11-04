@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface TransactionRepository extends JpaRepository<Transaction, Long>, JpaSpecificationExecutor<Transaction> {
     Optional<Transaction> findByUniqueIdentifier(TransactionUniqueIdentifier uniqueIdentifier);
+
+    boolean existsByUniqueIdentifier(TransactionUniqueIdentifier uniqueIdentifier);
 }
