@@ -1,15 +1,15 @@
 package ir.guru.user.user;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.validation.annotation.Validated;
-
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.List;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
-@Validated
+@Valid
 @ConfigurationProperties(prefix = "application.security.jwt")
-public record JwtTokenProperties(
-        Duration accessTokenTtl,
-        String issuer,
+record JwtTokenProperties(
+        @NotNull Duration accessTokenTtl,
+        @NotNull String issuer,
         @DefaultValue("user.read") List<String> defaultScopes) {}

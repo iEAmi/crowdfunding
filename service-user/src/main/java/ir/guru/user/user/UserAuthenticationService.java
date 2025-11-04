@@ -1,39 +1,27 @@
 package ir.guru.user.user;
 
-import ir.guru.user.user.web.AuthController;
+import java.time.Clock;
+import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
-import java.time.Instant;
-
 @Service
-public class UserAuthenticationService {
-
-    private final AuthenticationManager authenticationManager;
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+final class UserAuthenticationService {
+    private final Clock clock;
     private final JwtEncoder jwtEncoder;
     private final JwtTokenProperties jwtTokenProperties;
-    private final Clock clock;
+    private final AuthenticationManager authenticationManager;
 
-    public UserAuthenticationService(
-            final AuthenticationManager authenticationManager,
-            final JwtEncoder jwtEncoder,
-            final JwtTokenProperties jwtTokenProperties,
-            final Clock clock) {
-        this.authenticationManager = authenticationManager;
-        this.jwtEncoder = jwtEncoder;
-        this.jwtTokenProperties = jwtTokenProperties;
-        this.clock = clock;
-    }
-
-    public AuthController.LoginResponse login(final String username, final String password) {
+    AccessToken login(final String username, final String password) {
         final var authenticationToken = UsernamePasswordAuthenticationToken.unauthenticated(username, password);
-        final Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        final var authentication = authenticationManager.authenticate(authenticationToken);
 
         final var now = Instant.now(clock);
         final var expiry = now.plus(jwtTokenProperties.accessTokenTtl());
@@ -51,9 +39,7 @@ public class UserAuthenticationService {
         final var parameters = JwtEncoderParameters.from(claims);
         final var jwt = jwtEncoder.encode(parameters);
 
-        return new AuthController.LoginResponse(
-                jwt.getTokenValue(),
-                "Bearer",
-                jwtTokenProperties.accessTokenTtl().toSeconds());
+        return AccessToken.bearerToken(
+                jwt.getTokenValue(), jwtTokenProperties.accessTokenTtl().toSeconds());
     }
 }

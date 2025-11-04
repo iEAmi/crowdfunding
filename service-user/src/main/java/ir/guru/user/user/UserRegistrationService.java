@@ -1,31 +1,22 @@
 package ir.guru.user.user;
 
-import ir.guru.user.user.web.AuthController;
+import static ir.guru.user.user.UserRegistrationException.invalidUsernameException;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
-import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Service
-public class UserRegistrationService {
-
-    private final UserDetailsManager userDetailsManager;
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+final class UserRegistrationService {
     private final PasswordEncoder passwordEncoder;
+    private final UserDetailsManager userDetailsManager;
 
-    public UserRegistrationService(final UserDetailsManager userDetailsManager, final PasswordEncoder passwordEncoder) {
-        this.userDetailsManager = userDetailsManager;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Transactional
-    public AuthController.RegisterResponse register(final String username, final String password) {
-        if (userDetailsManager.userExists(username)) {
-            throw new ResponseStatusException(CONFLICT, "username-already-exists");
-        }
+    void register(String username, String password) throws UserRegistrationException {
+        if (userDetailsManager.userExists(username)) throw invalidUsernameException(username);
 
         final var encodedPassword = passwordEncoder.encode(password);
         final var userDetails = User.withUsername(username)
@@ -34,7 +25,5 @@ public class UserRegistrationService {
                 .build();
 
         userDetailsManager.createUser(userDetails);
-
-        return new AuthController.RegisterResponse(username);
     }
 }

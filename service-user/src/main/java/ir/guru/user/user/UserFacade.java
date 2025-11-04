@@ -9,4 +9,12 @@ import org.springframework.stereotype.Service;
 public final class UserFacade {
     private final UserRegistrationService userRegistrationService;
     private final UserAuthenticationService userAuthenticationService;
+
+    public AccessToken login(String username, String password) {
+        return userAuthenticationService.login(username, password);
+    }
+
+    public void register(String username, String password) throws UserRegistrationException {
+        userRegistrationService.register(username, password);
+    }
 }
