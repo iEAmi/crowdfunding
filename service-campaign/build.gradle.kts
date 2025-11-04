@@ -62,6 +62,8 @@ tasks.withType<Test> {
 
 spotless {
     java {
+        importOrder()
+        removeUnusedImports()
         palantirJavaFormat("2.81.0")
     }
 }
