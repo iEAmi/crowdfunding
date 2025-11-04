@@ -12,16 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,18 +33,18 @@ final class CampaignController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<CampaignResponse> getCampaign(@PathVariable Long id) {
+    ResponseEntity<CampaignResponse> findCampaign(@PathVariable("id") Long id) {
         final var campaign = campaignFacade.findById(id);
-        return campaign.map(CampaignResponse::of).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return campaign.map(CampaignResponse::of).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
     Set<CampaignResponse> filterCampaigns(
-            @RequestParam(name = "name", required = false) CampaignName name,
+            @RequestParam(name = "name", required = false) @Nullable CampaignName name,
             @RequestParam(name = "createdAtFrom", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdAtFrom,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Nullable LocalDateTime createdAtFrom,
             @RequestParam(name = "createdAtTo", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdAtTo,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Nullable LocalDateTime createdAtTo,
             Pageable pageable) {
         final var filter = new CampaignFilter(name, createdAtFrom, createdAtTo);
         return campaignFacade.filterCampaigns(filter, pageable).stream()
@@ -83,6 +77,17 @@ final class CampaignController {
                     xerox.name(),
                     xerox.description(),
                     xerox.targetAmountRials(), xerox.currentAmountRials(), xerox.amountRialsReachedAt(), xerox.createdAt());
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof CampaignResponse that)) return false;
+            return Objects.equals(id, that.id);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(id);
         }
     }
 }
