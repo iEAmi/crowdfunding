@@ -13,7 +13,8 @@ final class SecurityConfig {
 
     @Bean
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/actuator/**").authorizeHttpRequests(authorize -> authorize
+        http.securityMatcher("/actuator/**")
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/actuator/health", "/actuator/info")
                         .permitAll()
                         .anyRequest()
@@ -27,8 +28,8 @@ final class SecurityConfig {
 
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/v1/user/**").authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated())
+        http.securityMatcher("/v1/user/**")
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
