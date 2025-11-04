@@ -15,7 +15,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/user/transactions")
+@RequestMapping("/v1/transactions")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 final class TransactionController {
     private final TransactionFacade transactionFacade;
