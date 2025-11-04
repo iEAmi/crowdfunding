@@ -74,6 +74,24 @@ class Campaign {
         return new Campaign(name, description, targetAmountRials);
     }
 
+    boolean canDonate(DonationAmountRials donationAmountRials) {
+        return getRemainingAmountRials() > donationAmountRials.value();
+    }
+
+    void donate(DonationAmountRials donationAmountRials) {
+        this.currentAmountRials = currentAmountRials.plus(donationAmountRials);
+
+        if (isTargetReached()) this.targetAmountRialsReachedAt = TargetAmountReachedAt.now();
+    }
+
+    private long getRemainingAmountRials() {
+        return targetAmountRials.value() - currentAmountRials.value();
+    }
+
+    private boolean isTargetReached() {
+        return this.targetAmountRials.value() == this.currentAmountRials.value();
+    }
+
     @Override
     public String toString() {
         return "Campaign{" + "id="

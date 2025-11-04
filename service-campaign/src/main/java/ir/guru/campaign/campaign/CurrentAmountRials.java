@@ -30,6 +30,10 @@ public final class CurrentAmountRials {
         return value;
     }
 
+    CurrentAmountRials plus(DonationAmountRials donationAmountRials) {
+        return new CurrentAmountRials(value + donationAmountRials.value());
+    }
+
     @Override
     public String toString() {
         return Long.toString(value);

@@ -2,7 +2,7 @@ package ir.guru.campaign.campaign;
 
 import lombok.Getter;
 
-public sealed abstract class DonationCreationException extends Exception {
+public abstract sealed class DonationCreationException extends Exception {
     private DonationCreationException(String message) {
         super(message);
     }

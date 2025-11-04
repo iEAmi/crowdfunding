@@ -5,7 +5,7 @@ import lombok.Getter;
 public interface TransactionCreator {
     void createTransaction(DonationXerox donation) throws TransactionCreationException;
 
-    sealed abstract class TransactionCreationException extends Exception {
+    abstract sealed class TransactionCreationException extends Exception {
         private TransactionCreationException(String message) {
             super(message);
         }

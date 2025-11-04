@@ -17,10 +17,11 @@ final class CampaignDonateController {
     private final CampaignFacade campaignFacade;
 
     @PutMapping("/{id}/donate")
-    void donate(@PathVariable("id") Long campaignId, @Valid @RequestBody DonateRequest request) {
+    void donate(@PathVariable("id") Long campaignId, @Valid @RequestBody DonateRequest request) {}
 
-    }
-
-    private record DonateRequest(@JsonProperty("amountRials") @NotNull(message = "user.campaign.donate.null_amountRials")
-                                 @Positive(message = "user.campaign.donate.negativeOrZero_amountRials") DonationAmountRials amountRials) {}
+    private record DonateRequest(
+            @JsonProperty("amountRials")
+            @NotNull(message = "user.campaign.donate.null_amountRials")
+            @Positive(message = "user.campaign.donate.negativeOrZero_amountRials")
+            DonationAmountRials amountRials) {}
 }

@@ -25,6 +25,10 @@ public final class TargetAmountReachedAt {
         this.value = LocalDateTime.parse(isoValue, DateTimeFormatter.ISO_DATE_TIME);
     }
 
+    static TargetAmountReachedAt now() {
+        return new TargetAmountReachedAt(LocalDateTime.now());
+    }
+
     public LocalDateTime value() {
         return value;
     }

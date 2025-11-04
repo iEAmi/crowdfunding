@@ -81,6 +81,10 @@ class Donation {
         this.paidAt = LocalDateTime.now();
     }
 
+    boolean isPaid() {
+        return this.status.equals(DonationStatus.PAID);
+    }
+
     @Override
     public String toString() {
         return "Donation{" + "id="

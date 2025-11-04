@@ -1,12 +1,11 @@
 package ir.guru.campaign.campaign;
 
+import static ir.guru.campaign.campaign.DonationCreationException.donationWindowViolationException;
+
+import java.time.Duration;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
-
-import static ir.guru.campaign.campaign.DonationCreationException.donationWindowViolationException;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -14,7 +13,8 @@ final class DonationFactory {
     private final DonationProperties properties;
     private final DonationRepository donationRepository;
 
-    Donation createDonation(Campaign campaign, String username, DonationAmountRials amountRials) throws DonationCreationException {
+    Donation createDonation(Campaign campaign, String username, DonationAmountRials amountRials)
+            throws DonationCreationException {
         final var donation = Donation.newInProgress(campaign.getId(), amountRials, username);
 
         guardAgainstDonationWindowViolation(donation);
@@ -22,8 +22,10 @@ final class DonationFactory {
         return donation;
     }
 
-    private void guardAgainstDonationWindowViolation(Donation donation) throws DonationCreationException.DonationWindowViolationException {
-        final var lastDonationCreatedAt = donationRepository.findLastDonationCreatedAtByUsername(donation.getUsername());
+    private void guardAgainstDonationWindowViolation(Donation donation)
+            throws DonationCreationException.DonationWindowViolationException {
+        final var lastDonationCreatedAt =
+                donationRepository.findLastDonationCreatedAtByUsername(donation.getUsername());
         if (lastDonationCreatedAt == null) return;
 
         final var window = properties.donationWindow();
