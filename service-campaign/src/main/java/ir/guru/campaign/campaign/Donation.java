@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.Nullable;
 
 @Getter(AccessLevel.PACKAGE)
 @Entity(name = "Donation")
@@ -24,8 +25,11 @@ class Donation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campaign_sequence")
     private Long id;
 
-    @Column(name = "donation_amount_rials", nullable = false)
-    private DonationAmountRials donationAmountRials;
+    @Column(name = "campaign_id", nullable = false)
+    private Long campaignId;
+
+    @Column(name = "amount_rials", nullable = false)
+    private DonationAmountRials amountRials;
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -36,6 +40,10 @@ class Donation {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private DonationStatus status;
+
+    @CreationTimestamp
+    @Column(name = "paid_at")
+    private @Nullable LocalDateTime paidAt;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -50,27 +58,35 @@ class Donation {
     private Long version;
 
     private Donation(
-            DonationAmountRials donationAmountRials,
+            Long campaignId,
+            DonationAmountRials amountRials,
             String username,
             DonationUniqueIdentifier uniqueIdentifier,
             DonationStatus status) {
-        this.donationAmountRials = donationAmountRials;
+        this.campaignId = campaignId;
+        this.amountRials = amountRials;
         this.username = username;
         this.uniqueIdentifier = uniqueIdentifier;
         this.status = status;
     }
 
-    static Donation newInProgress(DonationAmountRials donationAmountRials, String username) {
+    static Donation newInProgress(Long campaignId, DonationAmountRials donationAmountRials, String username) {
         final var uniqueIdentifier = DonationUniqueIdentifier.random();
         final var status = DonationStatus.IN_PROGRESS;
-        return new Donation(donationAmountRials, username, uniqueIdentifier, status);
+        return new Donation(campaignId, donationAmountRials, username, uniqueIdentifier, status);
+    }
+
+    void paid() {
+        this.status = DonationStatus.PAID;
+        this.paidAt = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Donation{" + "id="
-                + id + ", donationAmountRials="
-                + donationAmountRials + ", username='"
+                + id + ", campaignId="
+                + campaignId + ", donationAmountRials="
+                + amountRials + ", username='"
                 + username + '\'' + ", uniqueIdentifier="
                 + uniqueIdentifier + ", status="
                 + status + ", createdAt="
