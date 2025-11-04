@@ -4,10 +4,9 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
-
-import java.time.LocalDateTime;
 
 final class TransactionSpecifications {
 

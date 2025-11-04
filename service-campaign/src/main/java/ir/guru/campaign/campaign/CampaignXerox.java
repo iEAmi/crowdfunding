@@ -1,9 +1,8 @@
 package ir.guru.campaign.campaign;
 
-import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
+import org.springframework.lang.Nullable;
 
 public record CampaignXerox(
         Long id,

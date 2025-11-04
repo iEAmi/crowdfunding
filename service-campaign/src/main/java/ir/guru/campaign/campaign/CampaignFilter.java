@@ -1,8 +1,7 @@
 package ir.guru.campaign.campaign;
 
-import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
+import org.springframework.lang.Nullable;
 
 public record CampaignFilter(
         @Nullable CampaignName name,

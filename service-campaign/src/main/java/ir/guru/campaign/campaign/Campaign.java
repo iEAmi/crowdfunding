@@ -1,6 +1,7 @@
 package ir.guru.campaign.campaign;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +10,6 @@ import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
-
-import java.time.LocalDateTime;
 
 @Getter(AccessLevel.PACKAGE)
 @Entity(name = "Campaign")
