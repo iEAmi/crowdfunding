@@ -106,7 +106,7 @@ final class AuthorizationServerConfig {
     }
 
     @Bean
-    public AuthorizationServerSettings authorizationServerSettings(final JwtTokenProperties jwtTokenProperties) {
+    public AuthorizationServerSettings authorizationServerSettings(JwtTokenProperties jwtTokenProperties) {
         return AuthorizationServerSettings.builder()
                 .issuer(jwtTokenProperties.issuer())
                 .build();

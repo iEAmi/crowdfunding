@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Valid
 @ConfigurationProperties(prefix = "application.security.jwt")
-record JwtTokenProperties(
+public record JwtTokenProperties(
         @NotNull Duration accessTokenTtl,
         @NotNull String issuer,
         @DefaultValue("user.read") List<String> defaultScopes) {}
