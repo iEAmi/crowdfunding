@@ -38,7 +38,7 @@ final class TransactionSpecifications {
             if (username == null) return null;
 
             final var namePath = root.get(Transaction.Fields.username).as(String.class);
-            return cb.like(cb.lower(namePath), "%" + username + "%");
+            return cb.like(namePath, "%" + username + "%");
         }
     }
 

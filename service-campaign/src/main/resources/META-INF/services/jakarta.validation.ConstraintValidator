@@ -1,0 +1,2 @@
+ir.guru.campaign.campaign.infrastructure.validation.TargetAmountRialsPositiveValidator
+ir.guru.campaign.campaign.infrastructure.validation.DonationAmountRialsPositiveValidator

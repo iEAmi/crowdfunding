@@ -39,7 +39,7 @@ final class DonationFactory {
 
         final var window = properties.donationWindow();
 
-        final var diff = Duration.between(donation.getCreatedAt(), lastDonationCreatedAt);
+        final var diff = Duration.between(donation.getCreatedAt(), lastDonationCreatedAt).abs();
         if (diff.minus(window).isNegative()) throw donationWindowViolationException();
     }
 }

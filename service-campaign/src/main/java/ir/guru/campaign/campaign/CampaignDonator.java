@@ -12,12 +12,17 @@ final class CampaignDonator {
 
     // TODO: write test
     void donate(Campaign campaign, Donation donation) {
-        if (!donation.isPaid()) throw new IllegalStateException("Donation is not paid");
-
         final var createTransactionResult = createTransaction(donation);
-        handleTransactionCreationResult(donation, createTransactionResult);
 
-        campaign.donate(donation.getAmountRials());
+        switch (createTransactionResult) {
+            case SUCCESS, DUPLICATE_TRANSACTION -> {
+                donation.paid();
+                campaign.donate(donation.getAmountRials());
+            }
+            case UNKNOWN_EXCEPTION -> {
+                /* Do nothing. try in next schedule */
+            }
+        }
     }
 
     private CreateTransactionResult createTransaction(Donation donation) {
@@ -32,15 +37,6 @@ final class CampaignDonator {
                 case TransactionCreator.TransactionCreationException.UnknownTransactionException _ ->
                     CreateTransactionResult.UNKNOWN_EXCEPTION;
             };
-        }
-    }
-
-    private void handleTransactionCreationResult(Donation donation, CreateTransactionResult result) {
-        switch (result) {
-            case SUCCESS, DUPLICATE_TRANSACTION -> donation.paid();
-            case UNKNOWN_EXCEPTION -> {
-                /* Do nothing. try in next schedule */
-            }
         }
     }
 

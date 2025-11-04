@@ -1,5 +1,6 @@
 package ir.guru.campaign.campaign.web;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ir.guru.campaign.campaign.*;
 import jakarta.validation.Valid;
@@ -71,6 +72,7 @@ final class CampaignController {
     private record CreateCampaignResponse(
             @JsonProperty("id") Long id) {}
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     record CampaignResponse(
             @JsonProperty("id") Long id,
             @JsonProperty("name") CampaignName name,

@@ -68,6 +68,10 @@ class Donation {
         this.username = username;
         this.uniqueIdentifier = uniqueIdentifier;
         this.status = status;
+
+        final var now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     // TODO: write test

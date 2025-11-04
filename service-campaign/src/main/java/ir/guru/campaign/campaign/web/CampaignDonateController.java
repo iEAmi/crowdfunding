@@ -27,7 +27,7 @@ final class CampaignDonateController {
             Authentication authentication,
             @PathVariable("id") Long campaignId,
             @Valid @RequestBody DonateRequest request) {
-        String username = (String) authentication.getPrincipal();
+        String username = authentication.getName();
         try {
             campaignFacade.donate(campaignId, username, request.amountRials);
         } catch (DonationCreationException e) {

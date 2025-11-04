@@ -22,7 +22,7 @@ final class CampaignDonationService {
     }
 
     void donate(Donation donation) {
-        final var campaign = campaignRepository.findById(donation.getId()).orElse(null);
+        final var campaign = campaignRepository.findById(donation.getCampaignId()).orElse(null);
         if (campaign == null) throw new IllegalStateException("Donation " + donation.getId() + " Campaign not found");
 
         campaignDonator.donate(campaign, donation);

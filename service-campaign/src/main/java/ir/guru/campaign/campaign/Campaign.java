@@ -70,7 +70,7 @@ class Campaign {
     boolean canDonate(DonationAmountRials donationAmountRials) {
         if (isTargetReached()) return false;
 
-        return getRemainingAmountRials() > donationAmountRials.value();
+        return getRemainingAmountRials() >= donationAmountRials.value();
     }
 
     // TODO: write test

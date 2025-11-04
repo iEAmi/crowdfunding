@@ -36,6 +36,8 @@ class DonationTransactionScheduler {
     }
 
     private void processDonation(Donation donation) {
+        log.info("Processing Donation: {}", donation);
+
         try {
             campaignDonateService.donate(donation);
         } catch (Exception e) {

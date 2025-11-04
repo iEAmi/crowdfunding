@@ -37,7 +37,7 @@ final class CampaignSpecifications {
             if (name == null) return null;
 
             final var namePath = root.get(Campaign.Fields.name).as(String.class);
-            return cb.like(cb.lower(namePath), "%" + name + "%");
+            return cb.like(namePath, "%" + name + "%");
         }
     }
 

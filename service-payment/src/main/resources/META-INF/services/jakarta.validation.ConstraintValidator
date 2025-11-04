@@ -1,0 +1,2 @@
+ir.guru.payment.payment.infrastructure.validation.TransactionUniqueIdentifierSizeValidator
+ir.guru.payment.payment.infrastructure.validation.TransactionAmountRialsPositiveValidator
