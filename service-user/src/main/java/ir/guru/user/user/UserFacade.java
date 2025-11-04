@@ -9,6 +9,4 @@ import org.springframework.stereotype.Service;
 public final class UserFacade {
     private final UserRegistrationService userRegistrationService;
     private final UserAuthenticationService userAuthenticationService;
-
-
 }

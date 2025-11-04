@@ -15,7 +15,8 @@ public final class TransactionUniqueIdentifier {
 
     @JsonCreator
     public TransactionUniqueIdentifier(String value) {
-        if (value.trim().isEmpty()) throw new IllegalArgumentException("Transaction uniqueIdentifier must not be blank");
+        if (value.trim().isEmpty())
+            throw new IllegalArgumentException("Transaction uniqueIdentifier must not be blank");
         this.value = value.trim();
     }
 

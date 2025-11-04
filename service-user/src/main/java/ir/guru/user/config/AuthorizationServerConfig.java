@@ -49,9 +49,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository(
-            final PasswordEncoder passwordEncoder,
-            final JwtTokenProperties jwtTokenProperties
-    ) {
+            final PasswordEncoder passwordEncoder, final JwtTokenProperties jwtTokenProperties) {
         final var registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("service-user-client")
                 .clientSecret(passwordEncoder.encode("service-user-secret"))
@@ -61,7 +59,9 @@ public class AuthorizationServerConfig {
                 .tokenSettings(TokenSettings.builder()
                         .accessTokenTimeToLive(jwtTokenProperties.accessTokenTtl())
                         .build())
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(false)
+                        .build())
                 .build();
         return new InMemoryRegisteredClientRepository(registeredClient);
     }

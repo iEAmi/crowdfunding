@@ -1,6 +1,9 @@
 package ir.guru.campaign.campaign;
 
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
@@ -30,7 +33,8 @@ final class CampaignSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (name == null) return null;
 
             final var namePath = root.get(Campaign.Fields.name).as(String.class);
@@ -45,12 +49,12 @@ final class CampaignSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (createdAtFrom == null) return null;
 
             final var createdAtPath = root.get(Campaign.Fields.createdAt).as(LocalDateTime.class);
             return cb.greaterThanOrEqualTo(createdAtPath, createdAtFrom);
-
         }
     }
 
@@ -60,7 +64,8 @@ final class CampaignSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Campaign> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (createdAtTo == null) return null;
 
             final var createdAtPath = root.get(Campaign.Fields.createdAt).as(LocalDateTime.class);

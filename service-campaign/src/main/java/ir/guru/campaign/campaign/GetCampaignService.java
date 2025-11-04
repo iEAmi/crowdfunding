@@ -17,7 +17,7 @@ class GetCampaignService {
     private final CampaignRepository campaignRepository;
 
     @Transactional(readOnly = true)
-    Optional<CampaignXerox> findById(Long id)  {
+    Optional<CampaignXerox> findById(Long id) {
         return campaignRepository.findById(id).map(CampaignXerox::of);
     }
 
@@ -28,7 +28,8 @@ class GetCampaignService {
         final var createdAtFromSpec = CampaignSpecifications.createdAtFrom(filter.createdAtFrom());
 
         final var spec = Specification.allOf(nameSpec, createdAtFromSpec, createdAtToSpec);
-        return campaignRepository.findAll(spec, pageable).stream().map(CampaignXerox::of).collect(Collectors.toSet());
+        return campaignRepository.findAll(spec, pageable).stream()
+                .map(CampaignXerox::of)
+                .collect(Collectors.toSet());
     }
-
 }

@@ -2,8 +2,8 @@ package ir.guru.user.user;
 
 import ir.guru.user.user.web.AuthController;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,10 +16,7 @@ public class UserRegistrationService {
     private final UserDetailsManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
-    public UserRegistrationService(
-            final UserDetailsManager userDetailsManager,
-            final PasswordEncoder passwordEncoder
-    ) {
+    public UserRegistrationService(final UserDetailsManager userDetailsManager, final PasswordEncoder passwordEncoder) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }

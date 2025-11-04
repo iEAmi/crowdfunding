@@ -23,15 +23,18 @@ final class TransactionController {
 
     @GetMapping("/{id}")
     ResponseEntity<TransactionResponse> findById(@PathVariable("id") Long id) {
-        return transactionFacade.findById(id)
+        return transactionFacade
+                .findById(id)
                 .map(TransactionResponse::of)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/identifier/{uniqueIdentifier}")
-    ResponseEntity<TransactionResponse> findByUniqueIdentifier(@PathVariable("uniqueIdentifier") TransactionUniqueIdentifier uniqueIdentifier) {
-        return transactionFacade.findByUniqueIdentifier(uniqueIdentifier)
+    ResponseEntity<TransactionResponse> findByUniqueIdentifier(
+            @PathVariable("uniqueIdentifier") TransactionUniqueIdentifier uniqueIdentifier) {
+        return transactionFacade
+                .findByUniqueIdentifier(uniqueIdentifier)
                 .map(TransactionResponse::of)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -41,14 +44,16 @@ final class TransactionController {
     Set<TransactionResponse> listTransactions(
             @RequestParam(name = "username", required = false) @Nullable String username,
             @RequestParam(name = "createdAtFrom", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Nullable LocalDateTime createdAtFrom,
+                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                    @Nullable
+                    LocalDateTime createdAtFrom,
             @RequestParam(name = "createdAtTo", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Nullable LocalDateTime createdAtTo,
-            Pageable pageable
-    ) {
+                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                    @Nullable
+                    LocalDateTime createdAtTo,
+            Pageable pageable) {
         TransactionFilter filter = new TransactionFilter(username, createdAtFrom, createdAtTo);
-        return transactionFacade.filterTransactions(filter, pageable)
-                .stream()
+        return transactionFacade.filterTransactions(filter, pageable).stream()
                 .map(TransactionResponse::of)
                 .collect(Collectors.toSet());
     }
@@ -59,13 +64,16 @@ final class TransactionController {
             @JsonProperty("username") String username,
             @JsonProperty("uniqueIdentifier") TransactionUniqueIdentifier uniqueIdentifier,
             @JsonProperty("description") @Nullable String description,
-            @JsonProperty("createdAt") LocalDateTime createdAt
-    ) {
+            @JsonProperty("createdAt") LocalDateTime createdAt) {
 
         private static TransactionResponse of(TransactionXerox xerox) {
             return new TransactionResponse(
-                    xerox.id(), xerox.amountRials(), xerox.username(), xerox.uniqueIdentifier(), xerox.description(), xerox.createdAt()
-            );
+                    xerox.id(),
+                    xerox.amountRials(),
+                    xerox.username(),
+                    xerox.uniqueIdentifier(),
+                    xerox.description(),
+                    xerox.createdAt());
         }
 
         @Override

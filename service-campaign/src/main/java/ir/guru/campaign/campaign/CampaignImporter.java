@@ -7,5 +7,6 @@ public interface CampaignImporter {
 
     TargetAmountRials targetAmountRials();
 
-    @Nullable String description();
+    @Nullable
+    String description();
 }

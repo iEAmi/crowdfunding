@@ -18,14 +18,12 @@ class GetTransactionService {
 
     @Transactional(readOnly = true)
     Optional<TransactionXerox> findById(Long id) {
-        return transactionRepository.findById(id)
-                .map(TransactionXerox::of);
+        return transactionRepository.findById(id).map(TransactionXerox::of);
     }
 
     @Transactional(readOnly = true)
     Optional<TransactionXerox> findByUniqueIdentifier(TransactionUniqueIdentifier uniqueIdentifier) {
-        return transactionRepository.findByUniqueIdentifier(uniqueIdentifier)
-                .map(TransactionXerox::of);
+        return transactionRepository.findByUniqueIdentifier(uniqueIdentifier).map(TransactionXerox::of);
     }
 
     @Transactional(readOnly = true)
@@ -35,6 +33,8 @@ class GetTransactionService {
         final var createdAtFromSpec = TransactionSpecifications.createdAtFrom(filter.createdAtFrom());
 
         final var spec = Specification.allOf(nameSpec, createdAtFromSpec, createdAtToSpec);
-        return transactionRepository.findAll(spec, pageable).stream().map(TransactionXerox::of).collect(Collectors.toSet());
+        return transactionRepository.findAll(spec, pageable).stream()
+                .map(TransactionXerox::of)
+                .collect(Collectors.toSet());
     }
 }

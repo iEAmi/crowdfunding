@@ -7,11 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,8 +18,7 @@ public class AuthController {
 
     public AuthController(
             final UserRegistrationService userRegistrationService,
-            final UserAuthenticationService userAuthenticationService
-    ) {
+            final UserAuthenticationService userAuthenticationService) {
         this.userRegistrationService = userRegistrationService;
         this.userAuthenticationService = userAuthenticationService;
     }
@@ -40,46 +35,26 @@ public class AuthController {
     }
 
     public static record LoginRequest(
-            @JsonProperty("username")
-            @NotBlank
-            @Size(min = 3, max = 128)
+            @JsonProperty("username") @NotBlank @Size(min = 3, max = 128)
             String username,
 
-            @JsonProperty("password")
-            @NotBlank
-            @Size(min = 6, max = 128)
-            String password
-    ) {
-    }
+            @JsonProperty("password") @NotBlank @Size(min = 6, max = 128)
+            String password) {}
 
     public static record LoginResponse(
-            @JsonProperty("access_token")
-            String accessToken,
+            @JsonProperty("access_token") String accessToken,
 
-            @JsonProperty("token_type")
-            String tokenType,
+            @JsonProperty("token_type") String tokenType,
 
-            @JsonProperty("expires_in")
-            long expiresIn
-    ) {
-    }
+            @JsonProperty("expires_in") long expiresIn) {}
 
     public static record RegisterRequest(
-            @JsonProperty("username")
-            @NotBlank
-            @Size(min = 3, max = 128)
+            @JsonProperty("username") @NotBlank @Size(min = 3, max = 128)
             String username,
 
-            @JsonProperty("password")
-            @NotBlank
-            @Size(min = 6, max = 128)
-            String password
-    ) {
-    }
+            @JsonProperty("password") @NotBlank @Size(min = 6, max = 128)
+            String password) {}
 
     public static record RegisterResponse(
-            @JsonProperty("username")
-            String username
-    ) {
-    }
+            @JsonProperty("username") String username) {}
 }

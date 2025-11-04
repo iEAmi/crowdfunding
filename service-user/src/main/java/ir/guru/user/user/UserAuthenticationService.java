@@ -24,8 +24,7 @@ public class UserAuthenticationService {
             final AuthenticationManager authenticationManager,
             final JwtEncoder jwtEncoder,
             final JwtTokenProperties jwtTokenProperties,
-            final Clock clock
-    ) {
+            final Clock clock) {
         this.authenticationManager = authenticationManager;
         this.jwtEncoder = jwtEncoder;
         this.jwtTokenProperties = jwtTokenProperties;
@@ -52,6 +51,9 @@ public class UserAuthenticationService {
         final var parameters = JwtEncoderParameters.from(claims);
         final var jwt = jwtEncoder.encode(parameters);
 
-        return new AuthController.LoginResponse(jwt.getTokenValue(), "Bearer", jwtTokenProperties.accessTokenTtl().toSeconds());
+        return new AuthController.LoginResponse(
+                jwt.getTokenValue(),
+                "Bearer",
+                jwtTokenProperties.accessTokenTtl().toSeconds());
     }
 }

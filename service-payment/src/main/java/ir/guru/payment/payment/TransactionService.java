@@ -10,6 +10,4 @@ public class TransactionService {
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-
-
 }

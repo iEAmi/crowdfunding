@@ -18,11 +18,7 @@ import java.time.LocalDateTime;
 @FieldNameConstants(level = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@SequenceGenerator(
-        name = "transaction_sequence",
-        sequenceName = "transaction_sequence",
-        allocationSize = 1
-)
+@SequenceGenerator(name = "transaction_sequence", sequenceName = "transaction_sequence", allocationSize = 1)
 class Transaction {
 
     @Id
@@ -53,20 +49,22 @@ class Transaction {
     @Column(name = "version", nullable = false)
     private Long version;
 
-    private Transaction(TransactionAmountRials amountRials,
-                        String username,
-                        TransactionUniqueIdentifier uniqueIdentifier,
-                        @Nullable String description) {
+    private Transaction(
+            TransactionAmountRials amountRials,
+            String username,
+            TransactionUniqueIdentifier uniqueIdentifier,
+            @Nullable String description) {
         this.amountRials = amountRials;
         this.username = username;
         this.uniqueIdentifier = uniqueIdentifier;
         this.description = description;
     }
 
-    public static Transaction newTransaction(TransactionAmountRials amountRials,
-                                             String username,
-                                             TransactionUniqueIdentifier uniqueIdentifier,
-                                             @Nullable String description) {
+    public static Transaction newTransaction(
+            TransactionAmountRials amountRials,
+            String username,
+            TransactionUniqueIdentifier uniqueIdentifier,
+            @Nullable String description) {
         return new Transaction(amountRials, username, uniqueIdentifier, description);
     }
 }

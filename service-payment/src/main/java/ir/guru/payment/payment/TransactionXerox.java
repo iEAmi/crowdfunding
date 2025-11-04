@@ -12,7 +12,13 @@ public record TransactionXerox(
         LocalDateTime createdAt) {
 
     static TransactionXerox of(Transaction transaction) {
-        return new TransactionXerox(transaction.getId(), transaction.getAmountRials(), transaction.getUsername(), transaction.getUniqueIdentifier(), transaction.getDescription(), transaction.getCreatedAt());
+        return new TransactionXerox(
+                transaction.getId(),
+                transaction.getAmountRials(),
+                transaction.getUsername(),
+                transaction.getUniqueIdentifier(),
+                transaction.getDescription(),
+                transaction.getCreatedAt());
     }
 
     @Override

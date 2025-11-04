@@ -10,39 +10,31 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.time.Clock;
-
 import javax.sql.DataSource;
+import java.time.Clock;
 
 @Configuration
 public class SecurityConfig {
 
     @Bean
     @Order(Ordered.LOWEST_PRECEDENCE)
-    public SecurityFilterChain defaultSecurityFilterChain(
-            final HttpSecurity http,
-            final JwtDecoder jwtDecoder
-    ) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
+    public SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity http, final JwtDecoder jwtDecoder)
+            throws Exception {
+        http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/.well-known/**",
-                                "/oauth2/token",
-                                "/oauth2/jwks"
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers("/api/auth/**", "/.well-known/**", "/oauth2/token", "/oauth2/jwks")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwt -> jwt.decoder(jwtDecoder)));
 
@@ -55,7 +47,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration)
+            throws Exception {
         return configuration.getAuthenticationManager();
     }
 

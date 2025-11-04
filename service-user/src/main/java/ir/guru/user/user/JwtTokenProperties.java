@@ -12,7 +12,4 @@ import java.util.List;
 public record JwtTokenProperties(
         Duration accessTokenTtl,
         String issuer,
-        @DefaultValue("user.read") List<String> defaultScopes
-) {
-}
-
+        @DefaultValue("user.read") List<String> defaultScopes) {}

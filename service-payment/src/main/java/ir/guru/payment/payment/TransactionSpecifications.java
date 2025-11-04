@@ -34,7 +34,8 @@ final class TransactionSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (username == null) return null;
 
             final var namePath = root.get(Transaction.Fields.username).as(String.class);
@@ -49,7 +50,8 @@ final class TransactionSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (createdAtFrom == null) return null;
 
             final var createdAtPath = root.get(Transaction.Fields.createdAt).as(LocalDateTime.class);
@@ -63,7 +65,8 @@ final class TransactionSpecifications {
         }
 
         @Override
-        public @Nullable Predicate toPredicate(Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
+        public @Nullable Predicate toPredicate(
+                Root<Transaction> root, @Nullable CriteriaQuery<?> query, CriteriaBuilder cb) {
             if (createdAtTo == null) return null;
 
             final var createdAtPath = root.get(Transaction.Fields.createdAt).as(LocalDateTime.class);
