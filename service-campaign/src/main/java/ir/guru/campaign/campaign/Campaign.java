@@ -2,6 +2,8 @@ package ir.guru.campaign.campaign;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +17,15 @@ import org.springframework.lang.Nullable;
 @Entity(name = "Campaign")
 @Table(name = "campaigns")
 @FieldNameConstants(level = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "campaign_sequence", sequenceName = "campaign_sequence", allocationSize = 1)
+@NamedEntityGraphs(
+        @NamedEntityGraph(name = Campaign.Graphs.WITH_DONATIONS, attributeNodes = @NamedAttributeNode("donations")))
 class Campaign {
+    static final class Graphs {
+        static final String WITH_DONATIONS = "campaign.donations";
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campaign_sequence")
@@ -38,6 +45,10 @@ class Campaign {
 
     @Column(name = "target_amount_rials_reached_at")
     private @Nullable TargetAmountReachedAt targetAmountRialsReachedAt;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "campaign_id", nullable = false)
+    private Set<Donation> donations;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -61,5 +72,29 @@ class Campaign {
 
     static Campaign create(CampaignName name, @Nullable String description, TargetAmountRials targetAmountRials) {
         return new Campaign(name, description, targetAmountRials);
+    }
+
+    @Override
+    public String toString() {
+        return "Campaign{" + "id="
+                + id + ", name="
+                + name + ", description='"
+                + description + '\'' + ", targetAmountRials="
+                + targetAmountRials + ", currentAmountRials="
+                + currentAmountRials + ", targetAmountRialsReachedAt="
+                + targetAmountRialsReachedAt + ", createdAt="
+                + createdAt + ", updatedAt="
+                + updatedAt + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Campaign campaign)) return false;
+        return Objects.equals(id, campaign.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
