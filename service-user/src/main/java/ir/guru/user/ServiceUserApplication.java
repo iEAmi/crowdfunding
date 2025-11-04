@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @EnableWebSecurity
 @SpringBootApplication
-public class ServiceUserApplication {
+class ServiceUserApplication {
 
     public static void main(final String[] args) {
         SpringApplication.run(ServiceUserApplication.class, args);
