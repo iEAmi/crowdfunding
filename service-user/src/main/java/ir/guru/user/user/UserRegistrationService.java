@@ -1,40 +1,43 @@
 package ir.guru.user.user;
 
+import ir.guru.user.user.web.AuthController;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.time.Clock;
-import java.time.Instant;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Service
 public class UserRegistrationService {
 
-    private final UserAccountRepository userAccountRepository;
+    private final UserDetailsManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;
-    private final Clock clock;
 
     public UserRegistrationService(
-            final UserAccountRepository userAccountRepository,
-            final PasswordEncoder passwordEncoder,
-            final Clock clock
+            final UserDetailsManager userDetailsManager,
+            final PasswordEncoder passwordEncoder
     ) {
-        this.userAccountRepository = userAccountRepository;
+        this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
-        this.clock = clock;
     }
 
     @Transactional
-    public UserAccount register(final String username, final String password) {
-        if (userAccountRepository.existsByUsername(username)) {
+    public AuthController.RegisterResponse register(final String username, final String password) {
+        if (userDetailsManager.userExists(username)) {
             throw new ResponseStatusException(CONFLICT, "username-already-exists");
         }
-        final var passwordHash = passwordEncoder.encode(password);
-        final var userAccount = new UserAccount(username, passwordHash, Instant.now(clock));
-        return userAccountRepository.save(userAccount);
+
+        final var encodedPassword = passwordEncoder.encode(password);
+        final var userDetails = User.withUsername(username)
+                .password(encodedPassword)
+                .roles("USER")
+                .build();
+
+        userDetailsManager.createUser(userDetails);
+
+        return new AuthController.RegisterResponse(username);
     }
 }
-

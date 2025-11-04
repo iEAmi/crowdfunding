@@ -15,9 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.time.Clock;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
@@ -63,5 +67,10 @@ public class SecurityConfig {
     @Bean
     public Clock clock() {
         return Clock.systemUTC();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(final DataSource dataSource) {
+        return new JdbcUserDetailsManager(dataSource);
     }
 }

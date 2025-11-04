@@ -31,8 +31,7 @@ public class AuthController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public RegisterResponse register(@Valid @RequestBody final RegisterRequest request) {
-        final var userAccount = userRegistrationService.register(request.username(), request.password());
-        return new RegisterResponse(userAccount.getId().toString(), userAccount.getUsername());
+        return userRegistrationService.register(request.username(), request.password());
     }
 
     @PostMapping("/login")
@@ -79,12 +78,8 @@ public class AuthController {
     }
 
     public static record RegisterResponse(
-            @JsonProperty("user_id")
-            String userId,
-
             @JsonProperty("username")
             String username
     ) {
     }
 }
-
