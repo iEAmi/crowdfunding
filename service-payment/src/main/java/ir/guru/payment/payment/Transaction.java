@@ -1,7 +1,9 @@
 package ir.guru.payment.payment;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,8 +14,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 
 @Getter(AccessLevel.PACKAGE)
-@Entity(name = "Campaign")
-@Table(name = "campaigns")
+@Entity(name = "Transaction")
+@Table(name = "transactions")
 @FieldNameConstants(level = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,13 +26,13 @@ class Transaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_sequence")
     private Long id;
 
-    @Column(name = "amount_rials", nullable = false)
+    @AttributeOverride(name = TransactionAmountRials.Fields.value, column = @Column(name = "amount_rials", nullable = false))
     private TransactionAmountRials amountRials;
 
     @Column(name = "username", nullable = false, length = 255)
     private String username;
 
-    @Column(name = "unique_identifier", nullable = false, unique = true, length = 255)
+    @AttributeOverride(name = TransactionAmountRials.Fields.value, column = @Column(name = "unique_identifier", nullable = false, unique = true, length = 255))
     private TransactionUniqueIdentifier uniqueIdentifier;
 
     @Column(name = "description")
