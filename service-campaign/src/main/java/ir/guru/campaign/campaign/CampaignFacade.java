@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public final class CampaignFacade {
     private final GetCampaignService getCampaignService;
     private final CreateCampaignService createCampaignService;
+    private final CampaignDonationService campaignDonationService;
 
     public CampaignXerox createCampaign(CampaignImporter importer) {
         return createCampaignService.createCampaign(importer);
@@ -23,5 +24,10 @@ public final class CampaignFacade {
 
     public Set<CampaignXerox> filterCampaigns(CampaignFilter filter, Pageable pageable) {
         return getCampaignService.filterCampaigns(filter, pageable);
+    }
+
+    public void donate(Long campaignId, String username, DonationAmountRials amountRials)
+            throws DonationCreationException {
+        campaignDonationService.donate(campaignId, username, amountRials);
     }
 }

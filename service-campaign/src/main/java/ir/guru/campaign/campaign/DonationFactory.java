@@ -1,6 +1,7 @@
 package ir.guru.campaign.campaign;
 
 import static ir.guru.campaign.campaign.DonationCreationException.donationWindowViolationException;
+import static ir.guru.campaign.campaign.DonationCreationException.invalidDonationException;
 
 import java.time.Duration;
 import lombok.AccessLevel;
@@ -15,11 +16,18 @@ final class DonationFactory {
 
     Donation createDonation(Campaign campaign, String username, DonationAmountRials amountRials)
             throws DonationCreationException {
+        guardAgainstInvalidDonation(campaign, amountRials);
+
         final var donation = Donation.newInProgress(campaign.getId(), amountRials, username);
 
         guardAgainstDonationWindowViolation(donation);
 
         return donation;
+    }
+
+    private void guardAgainstInvalidDonation(Campaign campaign, DonationAmountRials amountRials)
+            throws DonationCreationException.InvalidDonationException {
+        if (!campaign.canDonate(amountRials)) throw invalidDonationException(amountRials);
     }
 
     private void guardAgainstDonationWindowViolation(Donation donation)

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+// DomainService
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 final class CampaignDonator {
