@@ -20,35 +20,26 @@ import org.springframework.lang.Nullable;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "campaign_sequence", sequenceName = "campaign_sequence", allocationSize = 1)
-@NamedEntityGraphs(
-        @NamedEntityGraph(name = Campaign.Graphs.WITH_DONATIONS, attributeNodes = @NamedAttributeNode("donations")))
 class Campaign {
-    static final class Graphs {
-        static final String WITH_DONATIONS = "campaign.donations";
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campaign_sequence")
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @AttributeOverride(name = CampaignName.Fields.value, column = @Column(name = "name", nullable = false, length = 255))
     private CampaignName name;
 
     @Column(name = "description", columnDefinition = "text")
     private @Nullable String description;
 
-    @Column(name = "target_amount_rials", nullable = false)
+    @AttributeOverride(name = TargetAmountRials.Fields.value, column = @Column(name = "target_amount_rials", nullable = false))
     private TargetAmountRials targetAmountRials;
 
-    @Column(name = "current_amount_rials", nullable = false)
+    @AttributeOverride(name = CurrentAmountRials.Fields.value, column = @Column(name = "current_amount_rials", nullable = false))
     private CurrentAmountRials currentAmountRials;
 
-    @Column(name = "target_amount_rials_reached_at")
+    @AttributeOverride(name = TargetAmountReachedAt.Fields.value, column = @Column(name = "target_amount_rials_reached_at"))
     private @Nullable TargetAmountReachedAt targetAmountRialsReachedAt;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "campaign_id", nullable = false)
-    private Set<Donation> donations;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

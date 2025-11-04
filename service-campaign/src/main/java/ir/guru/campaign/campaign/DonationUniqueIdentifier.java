@@ -7,9 +7,11 @@ import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 
 @Embeddable
 @EqualsAndHashCode
+@FieldNameConstants(level = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class DonationUniqueIdentifier {
     private String value;

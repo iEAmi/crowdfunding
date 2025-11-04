@@ -6,9 +6,11 @@ import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 
 @Embeddable
 @EqualsAndHashCode
+@FieldNameConstants(level = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class CampaignName {
     private String value;

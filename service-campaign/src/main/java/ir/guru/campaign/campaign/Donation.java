@@ -22,19 +22,19 @@ import org.springframework.lang.Nullable;
 class Donation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campaign_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "donation_sequence")
     private Long id;
 
     @Column(name = "campaign_id", nullable = false)
     private Long campaignId;
 
-    @Column(name = "amount_rials", nullable = false)
+    @AttributeOverride(name = DonationAmountRials.Fields.value, column =  @Column(name = "amount_rials", nullable = false))
     private DonationAmountRials amountRials;
 
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "unique_identifier", nullable = false)
+    @AttributeOverride(name = DonationUniqueIdentifier.Fields.value, column =  @Column(name = "unique_identifier", nullable = false))
     private DonationUniqueIdentifier uniqueIdentifier;
 
     @Enumerated(EnumType.STRING)

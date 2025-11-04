@@ -6,13 +6,13 @@ import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 
 @Embeddable
 @EqualsAndHashCode
+@FieldNameConstants(level = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class TargetAmountRials {
-    static final TargetAmountRials ZERO = new TargetAmountRials(0);
-
     private long value;
 
     private TargetAmountRials(long value) {

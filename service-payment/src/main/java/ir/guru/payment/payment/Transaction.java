@@ -32,7 +32,7 @@ class Transaction {
     @Column(name = "username", nullable = false, length = 255)
     private String username;
 
-    @AttributeOverride(name = TransactionAmountRials.Fields.value, column = @Column(name = "unique_identifier", nullable = false, unique = true, length = 255))
+    @AttributeOverride(name = TransactionUniqueIdentifier.Fields.value, column = @Column(name = "unique_identifier", nullable = false, unique = true, length = 255))
     private TransactionUniqueIdentifier uniqueIdentifier;
 
     @Column(name = "description")
