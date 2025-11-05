@@ -14,7 +14,6 @@ final class DonationFactory {
     private final DonationProperties properties;
     private final DonationRepository donationRepository;
 
-    // TODO: write test
     Donation createDonation(Campaign campaign, String username, DonationAmountRials amountRials)
             throws DonationCreationException {
         guardAgainstInvalidDonation(campaign, amountRials);
@@ -39,7 +38,8 @@ final class DonationFactory {
 
         final var window = properties.donationWindow();
 
-        final var diff = Duration.between(donation.getCreatedAt(), lastDonationCreatedAt).abs();
+        final var diff =
+                Duration.between(donation.getCreatedAt(), lastDonationCreatedAt).abs();
         if (diff.minus(window).isNegative()) throw donationWindowViolationException();
     }
 }

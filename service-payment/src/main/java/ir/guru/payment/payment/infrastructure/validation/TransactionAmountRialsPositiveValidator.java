@@ -14,7 +14,8 @@ public class TransactionAmountRialsPositiveValidator implements ConstraintValida
     public TransactionAmountRialsPositiveValidator() {}
 
     @Override
-    public boolean isValid(@Nullable TransactionAmountRials amountRials, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(
+            @Nullable TransactionAmountRials amountRials, ConstraintValidatorContext constraintValidatorContext) {
         // Null is valid
         if (amountRials == null) return true;
 

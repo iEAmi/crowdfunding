@@ -19,7 +19,6 @@ final class UserAuthenticationService {
     private final JwtTokenProperties jwtTokenProperties;
     private final AuthenticationManager authenticationManager;
 
-    // TODO: write test
     AccessToken login(String username, String password) {
         final var authenticationToken = UsernamePasswordAuthenticationToken.unauthenticated(username, password);
         final var authentication = authenticationManager.authenticate(authenticationToken);

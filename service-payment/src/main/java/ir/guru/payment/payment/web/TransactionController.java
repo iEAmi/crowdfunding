@@ -65,7 +65,6 @@ final class TransactionController {
             @JsonProperty("description") @Nullable String description,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
 
-        // TODO: write test
         static TransactionResponse of(TransactionXerox xerox) {
             return new TransactionResponse(
                     xerox.id(),

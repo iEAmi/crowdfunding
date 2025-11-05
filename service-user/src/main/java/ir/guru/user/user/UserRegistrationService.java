@@ -15,7 +15,6 @@ final class UserRegistrationService {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsManager userDetailsManager;
 
-    // TODO: write test
     void register(String username, String password) throws UserRegistrationException {
         if (userDetailsManager.userExists(username)) throw invalidUsernameException(username);
 

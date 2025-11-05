@@ -82,7 +82,6 @@ final class CampaignController {
             @JsonProperty("amountRialsReachedAt") @Nullable TargetAmountReachedAt amountRialsReachedAt,
             @JsonProperty("createdAt") LocalDateTime createdAt) {
 
-        // TODO: write test
         static CampaignResponse of(CampaignXerox xerox) {
             return new CampaignResponse(
                     xerox.id(),

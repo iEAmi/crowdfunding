@@ -28,13 +28,17 @@ class Donation {
     @Column(name = "campaign_id", nullable = false)
     private Long campaignId;
 
-    @AttributeOverride(name = DonationAmountRials.Fields.value, column =  @Column(name = "amount_rials", nullable = false))
+    @AttributeOverride(
+            name = DonationAmountRials.Fields.value,
+            column = @Column(name = "amount_rials", nullable = false))
     private DonationAmountRials amountRials;
 
     @Column(name = "username", nullable = false)
     private String username;
 
-    @AttributeOverride(name = DonationUniqueIdentifier.Fields.value, column =  @Column(name = "unique_identifier", nullable = false))
+    @AttributeOverride(
+            name = DonationUniqueIdentifier.Fields.value,
+            column = @Column(name = "unique_identifier", nullable = false))
     private DonationUniqueIdentifier uniqueIdentifier;
 
     @Enumerated(EnumType.STRING)
@@ -74,20 +78,17 @@ class Donation {
         this.updatedAt = now;
     }
 
-    // TODO: write test
     static Donation newInProgress(Long campaignId, DonationAmountRials donationAmountRials, String username) {
         final var uniqueIdentifier = DonationUniqueIdentifier.random();
         final var status = DonationStatus.IN_PROGRESS;
         return new Donation(campaignId, donationAmountRials, username, uniqueIdentifier, status);
     }
 
-    // TODO: write test
     void paid() {
         this.status = DonationStatus.PAID;
         this.paidAt = LocalDateTime.now();
     }
 
-    // TODO: write test
     boolean isPaid() {
         return this.status.equals(DonationStatus.PAID);
     }
@@ -106,7 +107,6 @@ class Donation {
                 + version + '}';
     }
 
-    // TODO: write test
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Donation donation)) return false;

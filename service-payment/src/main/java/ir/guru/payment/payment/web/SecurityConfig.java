@@ -30,12 +30,15 @@ final class SecurityConfig {
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/v1/transactions/**")
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "/v1/transactions").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/v1/transactions")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
-
 }

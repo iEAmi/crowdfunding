@@ -12,7 +12,6 @@ public record TransactionXerox(
         @Nullable String description,
         LocalDateTime createdAt) {
 
-    // TODO: write test
     static TransactionXerox of(Transaction transaction) {
         return new TransactionXerox(
                 transaction.getId(),

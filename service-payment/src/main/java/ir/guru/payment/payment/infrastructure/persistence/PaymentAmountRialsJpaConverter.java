@@ -4,7 +4,6 @@ import ir.guru.payment.payment.TransactionAmountRials;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-// TODO: write test
 @Converter(autoApply = true)
 final class PaymentAmountRialsJpaConverter implements AttributeConverter<TransactionAmountRials, Long> {
 

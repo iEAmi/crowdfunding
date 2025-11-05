@@ -9,7 +9,8 @@ import org.springframework.lang.Nullable;
 /**
  * Null consider valid.
  */
-public class TransactionUniqueIdentifierSizeValidator implements ConstraintValidator<Size, TransactionUniqueIdentifier> {
+public class TransactionUniqueIdentifierSizeValidator
+        implements ConstraintValidator<Size, TransactionUniqueIdentifier> {
     private int min;
     private int max;
 
@@ -22,7 +23,9 @@ public class TransactionUniqueIdentifierSizeValidator implements ConstraintValid
     }
 
     @Override
-    public boolean isValid(@Nullable TransactionUniqueIdentifier uniqueIdentifier, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(
+            @Nullable TransactionUniqueIdentifier uniqueIdentifier,
+            ConstraintValidatorContext constraintValidatorContext) {
         // Null is valid
         if (uniqueIdentifier == null) return true;
 

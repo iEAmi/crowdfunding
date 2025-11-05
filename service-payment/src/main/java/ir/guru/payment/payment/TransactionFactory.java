@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 final class TransactionFactory {
     private final TransactionRepository transactionRepository;
 
-    // TODO: write test
     Transaction createTransaction(TransactionImporter importer) throws TransactionCreationException {
         guardAgainstDuplicateTransaction(importer);
 

@@ -20,19 +20,16 @@ public final class DonationAmountRials {
         this.value = value;
     }
 
-    // TODO: write test
     @JsonCreator
     public static DonationAmountRials of(long value) {
         return new DonationAmountRials(value);
     }
 
-    // TODO: write test
     @JsonValue
     public long value() {
         return value;
     }
 
-    // TODO: write test
     @Override
     public String toString() {
         return Long.toString(value);

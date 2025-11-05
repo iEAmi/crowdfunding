@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-// TODO: write test
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 final class PaymentServiceTransactionCreator implements TransactionCreator {

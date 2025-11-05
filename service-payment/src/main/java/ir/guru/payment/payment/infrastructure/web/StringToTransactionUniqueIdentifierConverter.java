@@ -4,7 +4,6 @@ import ir.guru.payment.payment.TransactionUniqueIdentifier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-// TODO: write test
 @Component
 final class StringToTransactionUniqueIdentifierConverter implements Converter<String, TransactionUniqueIdentifier> {
     @Override

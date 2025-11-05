@@ -4,7 +4,6 @@ import ir.guru.campaign.campaign.CampaignName;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-// TODO: write test
 @Component
 final class StringToCampaignNameConverter implements Converter<String, CampaignName> {
     @Override

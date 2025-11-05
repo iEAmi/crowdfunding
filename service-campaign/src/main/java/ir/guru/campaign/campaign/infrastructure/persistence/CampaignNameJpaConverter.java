@@ -5,7 +5,6 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import org.springframework.lang.Nullable;
 
-// TODO: write test
 @Converter(autoApply = true)
 final class CampaignNameJpaConverter implements AttributeConverter<CampaignName, String> {
 

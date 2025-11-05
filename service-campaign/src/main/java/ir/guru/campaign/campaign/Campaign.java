@@ -3,7 +3,6 @@ package ir.guru.campaign.campaign;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,19 +25,27 @@ class Campaign {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campaign_sequence")
     private Long id;
 
-    @AttributeOverride(name = CampaignName.Fields.value, column = @Column(name = "name", nullable = false, length = 255))
+    @AttributeOverride(
+            name = CampaignName.Fields.value,
+            column = @Column(name = "name", nullable = false, length = 255))
     private CampaignName name;
 
     @Column(name = "description", columnDefinition = "text")
     private @Nullable String description;
 
-    @AttributeOverride(name = TargetAmountRials.Fields.value, column = @Column(name = "target_amount_rials", nullable = false))
+    @AttributeOverride(
+            name = TargetAmountRials.Fields.value,
+            column = @Column(name = "target_amount_rials", nullable = false))
     private TargetAmountRials targetAmountRials;
 
-    @AttributeOverride(name = CurrentAmountRials.Fields.value, column = @Column(name = "current_amount_rials", nullable = false))
+    @AttributeOverride(
+            name = CurrentAmountRials.Fields.value,
+            column = @Column(name = "current_amount_rials", nullable = false))
     private CurrentAmountRials currentAmountRials;
 
-    @AttributeOverride(name = TargetAmountReachedAt.Fields.value, column = @Column(name = "target_amount_rials_reached_at"))
+    @AttributeOverride(
+            name = TargetAmountReachedAt.Fields.value,
+            column = @Column(name = "target_amount_rials_reached_at"))
     private @Nullable TargetAmountReachedAt targetAmountRialsReachedAt;
 
     @CreationTimestamp
@@ -61,19 +68,16 @@ class Campaign {
         this.targetAmountRialsReachedAt = null;
     }
 
-    // TODO: write test
     static Campaign create(CampaignName name, @Nullable String description, TargetAmountRials targetAmountRials) {
         return new Campaign(name, description, targetAmountRials);
     }
 
-    // TODO: write test
     boolean canDonate(DonationAmountRials donationAmountRials) {
         if (isTargetReached()) return false;
 
         return getRemainingAmountRials() >= donationAmountRials.value();
     }
 
-    // TODO: write test
     void donate(DonationAmountRials donationAmountRials) {
         this.currentAmountRials = currentAmountRials.plus(donationAmountRials);
 
@@ -101,7 +105,6 @@ class Campaign {
                 + updatedAt + '}';
     }
 
-    // TODO: write test
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Campaign campaign)) return false;

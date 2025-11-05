@@ -15,14 +15,12 @@ import lombok.experimental.FieldNameConstants;
 public final class CampaignName {
     private String value;
 
-    // TODO: write test
     @JsonCreator
     public CampaignName(String value) {
         if (value.trim().isEmpty()) throw new IllegalArgumentException("Campaign name must not be blank");
         this.value = value.trim();
     }
 
-    // TODO: write test
     @JsonValue
     @Override
     public String toString() {
